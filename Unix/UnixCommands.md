@@ -47,75 +47,78 @@ Interface between user and the computer hardware.
 
 ### Unix Basic Commands
 
-#### cat (create & append file)
-#### touch (create blank file)
-#### nano (create & edit file)
-#### vi/vim (create & edit file)
-#### ls (list) (-a, -la)
-#### cd (change directory)
-#### pwd (print working directory)
-#### mkdir (create directory, multiple)
-#### cp (copy)
-#### mv (move)
-#### mv (rename)
-#### rm (remove file)
-#### tree (see in tree structure)
-#### rm -rf(remove directory & recursive)
-#### grep (pick & print)
-#### less (see output)
-#### head (see top 10 lines)
-#### tail (see last 10 lines)
-#### sort (display in Alphabetic/Numeric order)
-#### User
-#### Group
-#### Soft Link (shortcut)
-#### Hard Link (backup)
-#### tar (to pack)
-#### gz (to compress)
-#### yum (to install)
-#### wget (to download)
-#### File/Directory Permissions:
-#### 
-#### chmod (permissions)
-#### chown (owner)
-#### chgrp (group)
-#### hostname (to see hostname)
-#### ifconfig (to get ip address)
-#### cat /etc/*rele* (to get os version)
-#### yum install httpd (to install package)
-#### yum update httpd (to upgrade package)
-#### yum remove httpd (to uninstall package)
-#### yum list installed (to see installed packages)
-#### service httpd status (to see status)
-#### service httpd start (to start service)
-#### service httpd reload (to restart service)
-#### service httpd restart (to restart service)
-#### chkconfig httpd on (to start service permanently)
-#### chkconfig httpd off (to stop service permanently)
-#### Redirection (redirecting output)
-#### which (to see package installed or not)
-#### sudo (to get root privileges)
-#### whoami (to see user)
-#### find -type f (to see all files in current directory)
-#### find -type d (to see all directories in current directory)
-#### find / -type f (to see all files under top level root directory)
-#### find / -type d (to see all directories under top level root directory)
-#### find / -type f -name <file_name> (to search specific file under top level root directory)
-#### find / -type d -name <dir_name> (to search specific dir under top level root directory)
+### File System Navigation
+ls: Lists files and directories in the current directory
+cd: Changes the current working directory
+pwd: Prints the current working directory
+mkdir: Creates a new directory
+rmdir: Removes an empty directory
+### File Manipulation
+touch: Creates an empty file or updates file timestamps
+cp: Copies files or directories
+mv: Moves or renames files and directories
+rm: Removes files or directories
+cat: Displays the contents of a file
+less: Views file contents one screen at a time
+head: Displays the beginning of a file
+tail: Displays the end of a file
+chmod: Changes file permissions
+chown: Changes file ownership
+### Text Processing
+grep: Searches for patterns in files
+sed: Stream editor for filtering and transforming text
+awk: Pattern scanning and text processing language
+sort: Sorts lines of text
+uniq: Removes duplicate lines from sorted text
+wc: Counts lines, words, and characters in a file
+tr: Translates or deletes characters
+### System Information
+uname: Displays system information
+top: Shows running processes and system resource usage
+ps: Displays information about active processes
+df: Shows disk space usage
+du: Displays disk usage of files and directories
+free: Displays amount of free and used memory
+### User and Group Management
+whoami: Displays the current user's username
+id: Prints user and group information
+groups: Shows group membership for a user
+useradd: Creates a new user account
+userdel: Deletes a user account
+passwd: Changes user password
+### Process Management
+kill: Terminates processes by their process ID
+pkill: Sends signals to processes based on name
+bg: Puts a job in the background
+fg: Brings a background job to the foreground
+jobs: Lists active jobs in the current shell session
+### Networking
+ping: Tests network connectivity to a specific host
+ifconfig: Displays or configures network interfaces
+netstat: Displays network connections and statistics
+ssh: Securely connects to remote systems
+scp: Securely copies files between hosts
+File Compression
+gzip: Compresses files
+gunzip: Decompresses gzip files
+tar: Archives files and directories
+### System Administration
+sudo: Executes a command as another user, typically the superuser
+shutdown: Shuts down or restarts the system
+crontab: Schedules commands to run at specified times
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Important to remember
-
-#### cat : ctrl+d
-#### nano : ctrl+x
-#### directory : mkdir -p dir1/dir2 & rm -rf
-#### grep : grep root /etc/passwd
-#### less,more,head,tail : less etc/passwd, head -3 etc/passwd (contents inside file)
-#### sort : contents inside file (sort <file name>)
-#### soft link : ln –s <mainfile> <linkfile>
-#### hard link : ln <mainfile> <linkfile>
-#### Adding single/multiple users to group : gpasswd -a/-M <user>,<user1> <group>
-#### Removing users from group : gpasswd –d <user>,<user1> <group>
-#### tar : tar -cvf <new.tar> <old> , tar -xvf <new.tar> (du -h file name)
-#### zip : gzip <new.tar> , gunzip <new.tar.gz>
+cat : ctrl+d
+nano : ctrl+x
+directory : mkdir -p dir1/dir2 & rm -rf
+grep : grep root /etc/passwd
+less,more,head,tail : less etc/passwd, head -3 etc/passwd (contents inside file)
+sort : contents inside file (sort <file name>)
+soft link : ln –s <mainfile> <linkfile>
+hard link : ln <mainfile> <linkfile>
+Adding single/multiple users to group : gpasswd -a/-M <user>,<user1> <group>
+Removing users from group : gpasswd –d <user>,<user1> <group>
+tar : tar -cvf <new.tar> <old> , tar -xvf <new.tar> (du -h file name)
+zip : gzip <new.tar> , gunzip <new.tar.gz>
