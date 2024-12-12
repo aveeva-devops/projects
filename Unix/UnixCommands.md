@@ -48,7 +48,7 @@ Interface between user and the computer hardware.
 ### Unix Basic Commands
 
 ### File System Navigation
-ls: Lists files and directories in the current directory
+ls: Lists files and directories in the current directory 
 cd: Changes the current working directory
 pwd: Prints the current working directory
 mkdir: Creates a new directory
