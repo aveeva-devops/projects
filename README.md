@@ -1,6 +1,9 @@
 # projects
 
-# Free online compiler - https://rextester.com/l/bash_online_compiler
-# Bash Script examples - 
+## Unix Concepts
 
-Online tutorials - https://github.com/bobbyiliev/introduction-to-bash-scripting 
+1. Unix commands
+2. Bash Scripting
+3. Projects 
+4. Interview Questions
+5. Mock Interview rounds
