@@ -2,7 +2,7 @@
 
 # S3 Bucket Operations Script
 
-BUCKET_NAME="my-s3-bucket"
+BUCKET_NAME="techtideunixwork"
 
 # Function to list objects in the bucket
 list_objects() {
