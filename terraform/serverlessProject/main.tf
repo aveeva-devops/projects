@@ -17,13 +17,13 @@ resource "aws_dynamodb_table" "users_table" {
 
 # Lambda function
 resource "aws_lambda_function" "users_lambda" {
-  filename      = "lambda_function.zip"
+  filename      = "index.zip"
   function_name = "users_lambda"
   role          = aws_iam_role.lambda_role.arn
   handler       = "index.handler"
   runtime       = "python3.9"
 
-  source_code_hash = filebase64sha256("lambda_function.zip")
+  source_code_hash = filebase64sha256("index.zip")
 }
 
 # IAM role for Lambda
