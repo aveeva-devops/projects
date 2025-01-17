@@ -1,3 +1,89 @@
+## Terraform Building Blocks
+
+### 1. The provider block   
+specifies the cloud provider or service you are managing.
+```
+provider "aws" {
+  region = "us-east-1"
+}
+
+```
+
+## 2. Resource Block  
+The resource block is used to create or manage infrastructure components. 
+```
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "ExampleInstance"
+  }
+}
+```
+
+### 3. Variable Block
+Use the variable block to define input variables for flexibility. 
+```
+variable "instance_type" {
+  default     = "t2.micro"
+  description = "Instance type to be used"
+  type        = string
+}
+```
+
+### 4. Output Block
+The output block allows you to display results of your Terraform execution. 
+
+```
+output "instance_ip" {
+  value = aws_instance.example.public_ip
+}
+
+```
+
+### 5. Data Block
+The data block is used to fetch existing resources from a provider.
+
+```
+data "aws_ami" "example" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
+}
+```
+
+### 6. Module Block
+The module block lets you organize and reuse code by calling other modules.
+```
+module "vpc" {
+  source = "./modules/vpc"
+  cidr   = "10.0.0.0/16"
+}
+```
+
+### 7. Terraform Block
+```
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+
+  backend "s3" {
+    bucket         = "my-terraform-state"
+    key            = "state/terraform.tfstate"
+    region         = "us-east-1"
+  }
+}
+```
+
 ## Install Terraform on Windows:
 To install Terraform on Windows, follow these steps:  
 1. Download the Terraform executable (.exe) file from the official Terraform - [https://developer.hashicorp.com/terraform/install]  
