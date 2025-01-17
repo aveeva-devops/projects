@@ -7,7 +7,7 @@ provider "aws" {
 
 # S3 Bucket for Event Source
 resource "aws_s3_bucket" "event_source_bucket" {
-  bucket = "event-driven-source-bucket"
+  bucket = "event-driven-source-aveeva-demo"
 
   tags = {
     Name        = "Source Bucket"
@@ -18,21 +18,10 @@ resource "aws_s3_bucket" "event_source_bucket" {
 # S3 Bucket for Event Destination
 
 resource "aws_s3_bucket" "destination_bucket" {
-  bucket = "event-driven-destination-bucket"
+  bucket = "event-driven-destination-aveeva-demo"
   tags = {
     Name        = "Source Bucket"
     Environment = "Demo"
-  }
-}
-
-
-# S3 Bucket Notification to Trigger Lambda Function
-resource "aws_s3_bucket_notification" "bucket_notification" {
-  bucket = aws_s3_bucket.event_source_bucket.id
-
-  lambda_function {
-    lambda_function_arn = aws_lambda_function.event_processor.arn
-    events              = ["s3:ObjectCreated:*"]
   }
 }
 
@@ -55,6 +44,7 @@ resource "aws_iam_role" "lambda_exec_role" {
 }
 
 # IAM Policy for Lambda Role
+# Update IAM Policy for Lambda Role
 resource "aws_iam_policy" "lambda_policy" {
   name        = "lambda_policy"
   description = "IAM policy for Lambda to access S3"
@@ -71,6 +61,14 @@ resource "aws_iam_policy" "lambda_policy" {
         ]
       },
       {
+        Action = ["s3:PutObject", "s3:PutObjectAcl"],
+        Effect = "Allow",
+        Resource = [
+          aws_s3_bucket.destination_bucket.arn,
+          "${aws_s3_bucket.destination_bucket.arn}/*"
+        ]
+      },
+      {
         Action = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
         Effect = "Allow",
         Resource = "*"
@@ -78,6 +76,7 @@ resource "aws_iam_policy" "lambda_policy" {
     ]
   })
 }
+
 
 # Attach Policy to IAM Role
 resource "aws_iam_role_policy_attachment" "attach_policy" {
@@ -102,6 +101,32 @@ resource "aws_lambda_function" "event_processor" {
     }
   }
 }
+
+# Allow S3 Bucket to invoke the Lambda function
+resource "aws_lambda_permission" "allow_s3_invocation" {
+  statement_id  = "AllowS3Invoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.event_processor.arn
+  principal     = "s3.amazonaws.com"
+
+  # Source bucket ARN
+  source_arn = aws_s3_bucket.event_source_bucket.arn
+}
+
+
+# S3 Bucket Notification to Trigger Lambda Function
+resource "aws_s3_bucket_notification" "bucket_notification" {
+  bucket = aws_s3_bucket.event_source_bucket.id
+
+  lambda_function {
+    lambda_function_arn = aws_lambda_function.event_processor.arn
+    events              = ["s3:ObjectCreated:*"]
+  }
+
+depends_on = [aws_lambda_permission.allow_s3_invocation]
+
+}
+
 
 # CloudWatch Log Group for Lambda
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
